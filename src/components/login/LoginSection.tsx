@@ -46,11 +46,11 @@ export default function LoginSection() {
               />
             </div>
 
-            {error && (
+            {/* {error && (
               <p className="text-xs text-red-500">
                 {(error as any)?.response?.data?.msg || "Login failed"}
               </p>
-            )}
+            )} */}
 
             <button
               type="submit"
