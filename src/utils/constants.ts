@@ -2,6 +2,7 @@ export const adminApiRoutes = Object.freeze({
   auth: {
     login: "/api/admin/auth/login",
     logout: "/api/admin/auth/logout",
+    refreshToken: "/api/admin/auth/refresh-token",
   },
   category: {
     base: "/api/admin/category",
@@ -36,6 +37,12 @@ export const adminApiRoutes = Object.freeze({
     pendingPayments: "/api/admin/order/pending-payments",
     createManual: "/api/admin/order/manual/create",
   },
+  purchaseDetail: {
+    base: "/api/admin/purchase-details",
+    create: "/api/admin/purchase-details/create",
+    update: (id: string) => `/api/admin/purchase-details/update/${id}`,
+    delete: (id: string) => `/api/admin/purchase-details/delete/${id}`,
+  },
   user: {
     base: "/api/admin/users",
     getById: (id: string) => `/api/admin/users/${id}`,
@@ -65,5 +72,6 @@ export const sidebarMenus = [
   { name: "Products", path: "/products", icon: "Package" },
   { name: "Orders", path: "/orders", icon: "ShoppingBag" },
   { name: "Users", path: "/users", icon: "Users" },
+  { name: "Purchase Details", path: "/purchase-details", icon: "ReceiptText" },
   { name: "Store Config", path: "/store-config", icon: "Settings" },
 ] as const;

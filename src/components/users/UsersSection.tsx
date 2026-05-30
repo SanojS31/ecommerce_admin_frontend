@@ -42,7 +42,7 @@ function UserOrdersModal({
     <Modal isOpen={isOpen} onClose={onClose} title={`${userName}'s Orders`} size="lg">
       {isLoading ? (
         <div className="flex items-center justify-center py-8">
-          <div className="w-5 h-5 border-2 border-gray-900 border-t-transparent rounded-full animate-spin" />
+          <div className="w-5 h-5 border-2 border-[var(--brand-primary)] border-t-transparent rounded-full animate-spin" />
         </div>
       ) : orders.length === 0 ? (
         <p className="text-center text-gray-400 text-sm py-8">No orders found</p>
@@ -117,7 +117,7 @@ export default function UsersSection() {
           value={search}
           onChange={(e) => setSearch(e.target.value)}
           placeholder="Search by name, email or phone..."
-          className="w-full max-w-sm px-3 py-2.5 text-sm border border-gray-200 rounded-lg focus:outline-none focus:ring-1 focus:ring-gray-900 focus:border-gray-900"
+          className="w-full max-w-sm px-3 py-2.5 text-sm border border-gray-200 rounded-lg focus:outline-none focus:ring-1 focus:ring-[var(--brand-primary)] focus:border-[var(--brand-primary)]"
         />
       </div>
 
@@ -125,7 +125,7 @@ export default function UsersSection() {
       <div className="bg-white rounded-xl border border-gray-100 overflow-hidden">
         {isLoading ? (
           <div className="flex items-center justify-center py-16">
-            <div className="w-5 h-5 border-2 border-gray-900 border-t-transparent rounded-full animate-spin" />
+            <div className="w-5 h-5 border-2 border-[var(--brand-primary)] border-t-transparent rounded-full animate-spin" />
           </div>
         ) : (
           <table className="w-full text-sm">

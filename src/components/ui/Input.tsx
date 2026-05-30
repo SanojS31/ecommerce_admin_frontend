@@ -37,7 +37,7 @@ export default function Input({
         className={`
           w-full px-3 py-2.5 text-sm border rounded-lg bg-white
           text-gray-900 placeholder-gray-400
-          focus:outline-none focus:ring-1 focus:ring-gray-900 focus:border-gray-900
+          focus:outline-none focus:ring-1 focus:ring-[var(--brand-primary)] focus:border-[var(--brand-primary)]
           disabled:bg-gray-50 disabled:text-gray-400
           transition-colors
           ${error ? "border-red-300" : "border-gray-200"}

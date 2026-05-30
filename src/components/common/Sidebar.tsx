@@ -9,6 +9,7 @@ import {
   ShoppingBag,
   Users,
   Settings,
+  ReceiptText,
   LogOut,
   X,
 } from "lucide-react";
@@ -22,6 +23,7 @@ const iconMap: Record<string, React.ElementType> = {
   ShoppingBag,
   Users,
   Settings,
+  ReceiptText,
 };
 
 const menus = [
@@ -31,6 +33,7 @@ const menus = [
   { name: "Products", path: "/products", icon: "Package" },
   { name: "Orders", path: "/orders", icon: "ShoppingBag" },
   { name: "Users", path: "/users", icon: "Users" },
+  { name: "Purchase Details", path: "/purchase-details", icon: "ReceiptText" },
   { name: "Store Config", path: "/store-config", icon: "Settings" },
 ];
 
@@ -51,9 +54,17 @@ export default function Sidebar({ onClose }: SidebarProps) {
     <aside className="h-full w-56 bg-white border-r border-gray-100 flex flex-col">
       {/* Logo */}
       <div className="flex items-center justify-between px-5 py-5 border-b border-gray-100">
-        <span className="text-base font-semibold text-gray-900 tracking-tight">
-          Admin Panel
-        </span>
+        <Link
+          href="/dashboard"
+          className="flex items-center"
+          aria-label="Mirni Collections dashboard"
+        >
+          <img
+            src="/MIRNI_logo.svg"
+            alt="Mirni Collections"
+            className="h-12 w-12 rounded-lg object-contain"
+          />
+        </Link>
         {onClose && (
           <button
             onClick={onClose}
@@ -79,8 +90,8 @@ export default function Sidebar({ onClose }: SidebarProps) {
               onClick={onClose}
               className={`flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm transition-colors ${
                 isActive
-                  ? "bg-gray-900 text-white"
-                  : "text-gray-500 hover:bg-gray-50 hover:text-gray-900"
+                  ? "bg-[var(--brand-primary)] text-white"
+                  : "text-gray-500 hover:bg-[var(--brand-primary-soft)] hover:text-[var(--brand-primary-hover)]"
               }`}
             >
               <Icon size={16} />

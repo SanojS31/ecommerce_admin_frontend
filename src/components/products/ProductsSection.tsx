@@ -93,7 +93,7 @@ export default function ProductsPage() {
       <div className="bg-white rounded-xl border border-gray-100 overflow-hidden">
         {isLoading ? (
           <div className="flex items-center justify-center py-16">
-            <div className="w-5 h-5 border-2 border-gray-900 border-t-transparent rounded-full animate-spin" />
+            <div className="w-5 h-5 border-2 border-[var(--brand-primary)] border-t-transparent rounded-full animate-spin" />
           </div>
         ) : (
           <table className="w-full text-sm">
@@ -182,7 +182,7 @@ export default function ProductsPage() {
                 onChange={(e) => setForm({ ...form, name: e.target.value })}
                 placeholder="Product name"
                 required
-                className="w-full px-3 py-2.5 text-sm border border-gray-200 rounded-lg focus:outline-none focus:ring-1 focus:ring-gray-900 focus:border-gray-900"
+                className="w-full px-3 py-2.5 text-sm border border-gray-200 rounded-lg focus:outline-none focus:ring-1 focus:ring-[var(--brand-primary)] focus:border-[var(--brand-primary)]"
               />
             </div>
 
@@ -196,7 +196,7 @@ export default function ProductsPage() {
                 placeholder="Product description"
                 required
                 rows={3}
-                className="w-full px-3 py-2.5 text-sm border border-gray-200 rounded-lg focus:outline-none focus:ring-1 focus:ring-gray-900 focus:border-gray-900 resize-none"
+                className="w-full px-3 py-2.5 text-sm border border-gray-200 rounded-lg focus:outline-none focus:ring-1 focus:ring-[var(--brand-primary)] focus:border-[var(--brand-primary)] resize-none"
               />
             </div>
 
@@ -210,7 +210,7 @@ export default function ProductsPage() {
                 onChange={(e) => setForm({ ...form, basePrice: e.target.value })}
                 placeholder="599"
                 required
-                className="w-full px-3 py-2.5 text-sm border border-gray-200 rounded-lg focus:outline-none focus:ring-1 focus:ring-gray-900 focus:border-gray-900"
+                className="w-full px-3 py-2.5 text-sm border border-gray-200 rounded-lg focus:outline-none focus:ring-1 focus:ring-[var(--brand-primary)] focus:border-[var(--brand-primary)]"
               />
             </div>
 
@@ -222,7 +222,7 @@ export default function ProductsPage() {
                 value={form.category}
                 onChange={(e) => setForm({ ...form, category: e.target.value })}
                 required
-                className="w-full px-3 py-2.5 text-sm border border-gray-200 rounded-lg focus:outline-none focus:ring-1 focus:ring-gray-900 focus:border-gray-900 bg-white"
+                className="w-full px-3 py-2.5 text-sm border border-gray-200 rounded-lg focus:outline-none focus:ring-1 focus:ring-[var(--brand-primary)] focus:border-[var(--brand-primary)] bg-white"
               >
                 <option value="">Select category</option>
                 {categories.map((cat: any) => (
@@ -239,7 +239,7 @@ export default function ProductsPage() {
                 value={form.brand}
                 onChange={(e) => setForm({ ...form, brand: e.target.value })}
                 required
-                className="w-full px-3 py-2.5 text-sm border border-gray-200 rounded-lg focus:outline-none focus:ring-1 focus:ring-gray-900 focus:border-gray-900 bg-white"
+                className="w-full px-3 py-2.5 text-sm border border-gray-200 rounded-lg focus:outline-none focus:ring-1 focus:ring-[var(--brand-primary)] focus:border-[var(--brand-primary)] bg-white"
               >
                 <option value="">Select brand</option>
                 {brands.map((brand: any) => (
@@ -255,7 +255,7 @@ export default function ProductsPage() {
               <select
                 value={String(form.isFeatured)}
                 onChange={(e) => setForm({ ...form, isFeatured: e.target.value === "true" })}
-                className="w-full px-3 py-2.5 text-sm border border-gray-200 rounded-lg focus:outline-none focus:ring-1 focus:ring-gray-900 focus:border-gray-900 bg-white"
+                className="w-full px-3 py-2.5 text-sm border border-gray-200 rounded-lg focus:outline-none focus:ring-1 focus:ring-[var(--brand-primary)] focus:border-[var(--brand-primary)] bg-white"
               >
                 <option value="false">No</option>
                 <option value="true">Yes</option>
@@ -274,7 +274,7 @@ export default function ProductsPage() {
                     onClick={() => toggleOption(opt)}
                     className={`px-3 py-1.5 text-xs rounded-lg border transition-colors ${
                       form.options.includes(opt)
-                        ? "bg-gray-900 text-white border-gray-900"
+                        ? "bg-[var(--brand-primary)] text-white border-[var(--brand-primary)]"
                         : "bg-white text-gray-600 border-gray-200 hover:border-gray-400"
                     }`}
                   >

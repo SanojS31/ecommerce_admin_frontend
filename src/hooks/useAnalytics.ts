@@ -7,9 +7,16 @@ async function getOverview() {
   return res.data;
 }
 
-async function getRecentOrders(limit: number) {
+async function getRecentOrders(
+  limit: number,
+  filters?: { startDate?: string; endDate?: string }
+) {
+  const params = new URLSearchParams({ limit: String(limit) });
+  if (filters?.startDate) params.set("startDate", filters.startDate);
+  if (filters?.endDate) params.set("endDate", filters.endDate);
+
   const res = await httpClient.get(
-    `${adminApiRoutes.analytics.recentOrders}?limit=${limit}`
+    `${adminApiRoutes.analytics.recentOrders}?${params.toString()}`
   );
   return res.data;
 }
@@ -40,10 +47,13 @@ export function useAnalyticsOverview() {
   });
 }
 
-export function useRecentOrders(limit = 10) {
+export function useRecentOrders(
+  limit = 10,
+  filters?: { startDate?: string; endDate?: string }
+) {
   return useQuery({
-    queryKey: ["analytics", "recent-orders", limit],
-    queryFn: () => getRecentOrders(limit),
+    queryKey: ["analytics", "recent-orders", limit, filters],
+    queryFn: () => getRecentOrders(limit, filters),
   });
 }
 

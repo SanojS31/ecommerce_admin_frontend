@@ -193,7 +193,7 @@ export default function OrdersSection() {
   };
 
   const inputClass =
-    "w-full px-3 py-2.5 text-sm border border-gray-200 rounded-lg focus:outline-none focus:ring-1 focus:ring-gray-900 focus:border-gray-900 bg-white";
+    "w-full px-3 py-2.5 text-sm border border-gray-200 rounded-lg focus:outline-none focus:ring-1 focus:ring-[var(--brand-primary)] focus:border-[var(--brand-primary)] bg-white";
 
   return (
     <div className="space-y-4">
@@ -217,7 +217,7 @@ export default function OrdersSection() {
             onClick={() => setStatusFilter(s)}
             className={`px-3 py-1.5 text-xs rounded-lg border whitespace-nowrap transition-colors ${
               statusFilter === s
-                ? "bg-gray-900 text-white border-gray-900"
+                ? "bg-[var(--brand-primary)] text-white border-[var(--brand-primary)]"
                 : "bg-white text-gray-500 border-gray-200 hover:border-gray-400"
             }`}
           >
@@ -230,7 +230,7 @@ export default function OrdersSection() {
       <div className="bg-white rounded-xl border border-gray-100 overflow-hidden">
         {isLoading ? (
           <div className="flex items-center justify-center py-16">
-            <div className="w-5 h-5 border-2 border-gray-900 border-t-transparent rounded-full animate-spin" />
+            <div className="w-5 h-5 border-2 border-[var(--brand-primary)] border-t-transparent rounded-full animate-spin" />
           </div>
         ) : (
           <table className="w-full text-sm">

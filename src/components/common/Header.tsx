@@ -39,7 +39,7 @@ export default function Header({ onMenuClick }: HeaderProps) {
       <div className="flex items-center gap-3">
         <button
           onClick={onMenuClick}
-          className="lg:hidden text-gray-500 hover:text-gray-700"
+          className="lg:hidden text-gray-500 hover:text-[var(--brand-primary-hover)]"
         >
           <Menu size={20} />
         </button>
@@ -47,11 +47,8 @@ export default function Header({ onMenuClick }: HeaderProps) {
       </div>
 
       <div className="flex items-center gap-3">
-        <button className="relative text-gray-400 hover:text-gray-600 transition-colors">
-          <Bell size={18} />
-        </button>
         <div className="flex items-center gap-2">
-          <div className="w-7 h-7 rounded-full bg-gray-900 flex items-center justify-center">
+          <div className="w-7 h-7 rounded-full bg-[var(--brand-primary)] flex items-center justify-center">
             <span className="text-white text-xs font-medium">
               {adminName.charAt(0).toUpperCase()}
             </span>

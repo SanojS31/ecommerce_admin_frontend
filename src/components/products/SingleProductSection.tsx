@@ -113,7 +113,7 @@ export default function ProductDetailPage() {
   if (isLoading) {
     return (
       <div className="flex items-center justify-center py-20">
-        <div className="w-5 h-5 border-2 border-gray-900 border-t-transparent rounded-full animate-spin" />
+        <div className="w-5 h-5 border-2 border-[var(--brand-primary)] border-t-transparent rounded-full animate-spin" />
       </div>
     );
   }
@@ -317,7 +317,7 @@ export default function ProductDetailPage() {
               <select
                 value={form.size}
                 onChange={(e) => setForm({ ...form, size: e.target.value })}
-                className="w-full px-3 py-2.5 text-sm border border-gray-200 rounded-lg focus:outline-none focus:ring-1 focus:ring-gray-900 focus:border-gray-900 bg-white"
+                className="w-full px-3 py-2.5 text-sm border border-gray-200 rounded-lg focus:outline-none focus:ring-1 focus:ring-[var(--brand-primary)] focus:border-[var(--brand-primary)] bg-white"
               >
                 <option value="">Select size</option>
                 {SIZE_OPTIONS.map((s) => (
@@ -333,7 +333,7 @@ export default function ProductDetailPage() {
               <select
                 value={form.ageGroup}
                 onChange={(e) => setForm({ ...form, ageGroup: e.target.value })}
-                className="w-full px-3 py-2.5 text-sm border border-gray-200 rounded-lg focus:outline-none focus:ring-1 focus:ring-gray-900 focus:border-gray-900 bg-white"
+                className="w-full px-3 py-2.5 text-sm border border-gray-200 rounded-lg focus:outline-none focus:ring-1 focus:ring-[var(--brand-primary)] focus:border-[var(--brand-primary)] bg-white"
               >
                 <option value="">Select age group</option>
                 {AGE_OPTIONS.map((a) => (
@@ -349,7 +349,7 @@ export default function ProductDetailPage() {
               <select
                 value={form.color}
                 onChange={(e) => setForm({ ...form, color: e.target.value })}
-                className="w-full px-3 py-2.5 text-sm border border-gray-200 rounded-lg focus:outline-none focus:ring-1 focus:ring-gray-900 focus:border-gray-900 bg-white"
+                className="w-full px-3 py-2.5 text-sm border border-gray-200 rounded-lg focus:outline-none focus:ring-1 focus:ring-[var(--brand-primary)] focus:border-[var(--brand-primary)] bg-white"
               >
                 <option value="">Select color</option>
                 {COLOR_OPTIONS.map((c) => (
@@ -370,7 +370,7 @@ export default function ProductDetailPage() {
                 onChange={(e) => setForm({ ...form, price: e.target.value })}
                 placeholder="599"
                 required
-                className="w-full px-3 py-2.5 text-sm border border-gray-200 rounded-lg focus:outline-none focus:ring-1 focus:ring-gray-900 focus:border-gray-900"
+                className="w-full px-3 py-2.5 text-sm border border-gray-200 rounded-lg focus:outline-none focus:ring-1 focus:ring-[var(--brand-primary)] focus:border-[var(--brand-primary)]"
               />
             </div>
             <div>
@@ -383,7 +383,7 @@ export default function ProductDetailPage() {
                 onChange={(e) => setForm({ ...form, stock: e.target.value })}
                 placeholder="20"
                 required
-                className="w-full px-3 py-2.5 text-sm border border-gray-200 rounded-lg focus:outline-none focus:ring-1 focus:ring-gray-900 focus:border-gray-900"
+                className="w-full px-3 py-2.5 text-sm border border-gray-200 rounded-lg focus:outline-none focus:ring-1 focus:ring-[var(--brand-primary)] focus:border-[var(--brand-primary)]"
               />
             </div>
           </div>
@@ -395,7 +395,7 @@ export default function ProductDetailPage() {
               value={form.sku}
               onChange={(e) => setForm({ ...form, sku: e.target.value })}
               placeholder="e.g. MAT-TOP-S"
-              className="w-full px-3 py-2.5 text-sm border border-gray-200 rounded-lg focus:outline-none focus:ring-1 focus:ring-gray-900 focus:border-gray-900"
+              className="w-full px-3 py-2.5 text-sm border border-gray-200 rounded-lg focus:outline-none focus:ring-1 focus:ring-[var(--brand-primary)] focus:border-[var(--brand-primary)]"
             />
           </div>
 

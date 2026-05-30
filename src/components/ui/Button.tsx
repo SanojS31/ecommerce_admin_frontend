@@ -11,7 +11,8 @@ interface ButtonProps {
 }
 
 const variantStyles = {
-  primary: "bg-gray-900 text-white hover:bg-gray-800",
+  primary:
+    "bg-[var(--brand-primary)] text-white hover:bg-[var(--brand-primary-hover)]",
   secondary: "bg-white text-gray-700 border border-gray-200 hover:bg-gray-50",
   danger: "bg-red-50 text-red-600 hover:bg-red-100",
   ghost: "text-gray-500 hover:text-gray-900 hover:bg-gray-50",

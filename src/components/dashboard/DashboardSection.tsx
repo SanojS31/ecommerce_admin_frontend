@@ -1,5 +1,14 @@
 "use client";
-import { ShoppingBag, Users, TrendingUp, Clock } from "lucide-react";
+
+import { useState } from "react";
+import {
+  Calendar,
+  Clock,
+  ShoppingBag,
+  TrendingUp,
+  Users,
+  X,
+} from "lucide-react";
 import { useAnalyticsOverview, useRecentOrders } from "@/hooks/useAnalytics";
 import Badge from "@/components/ui/Badge";
 import Link from "next/link";
@@ -11,7 +20,7 @@ function StatCard({
   sub,
 }: {
   label: string;
-  value: string | number;
+  value: React.ReactNode;
   icon: React.ElementType;
   sub?: string;
 }) {
@@ -44,16 +53,42 @@ function getOrderStatusVariant(status: string) {
   return map[status] || "default";
 }
 
+function formatDate(value?: string) {
+  if (!value) return "-";
+
+  return new Intl.DateTimeFormat("en-IN", {
+    day: "2-digit",
+    month: "short",
+    year: "numeric",
+  }).format(new Date(value));
+}
+
 export default function DashboardSection() {
+  const [startDate, setStartDate] = useState("");
+  const [endDate, setEndDate] = useState("");
+  const hasDateFilter = Boolean(startDate || endDate);
+
   const { data: overview } = useAnalyticsOverview();
-  const { data: recentOrdersData } = useRecentOrders(5);
+  const { data: recentOrdersData } = useRecentOrders(
+    hasDateFilter ? 100 : 5,
+    hasDateFilter ? { startDate, endDate } : undefined
+  );
+
+  const clearDateFilter = () => {
+    setStartDate("");
+    setEndDate("");
+  };
 
   return (
     <div className="space-y-5">
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
         <StatCard
           label="Total Revenue"
-          value={`₹${overview?.data?.totalRevenue?.toLocaleString() || 0}`}
+          value={
+            <>
+              &#8377;{overview?.data?.totalRevenue?.toLocaleString() || 0}
+            </>
+          }
           icon={TrendingUp}
         />
         <StatCard
@@ -75,42 +110,128 @@ export default function DashboardSection() {
       </div>
 
       <div className="bg-white rounded-xl border border-gray-100">
-        <div className="flex items-center justify-between px-5 py-4 border-b border-gray-100">
-          <h2 className="text-sm font-semibold text-gray-900">Recent Orders</h2>
-          <Link href="/orders" className="text-xs text-gray-400 hover:text-gray-700 transition-colors">
-            View all
-          </Link>
+        <div className="flex flex-col gap-3 px-5 py-4 border-b border-gray-100 lg:flex-row lg:items-center lg:justify-between">
+          <div>
+            <h2 className="text-sm font-semibold text-gray-900">
+              Recent Orders
+            </h2>
+            {hasDateFilter && (
+              <p className="mt-1 text-xs text-gray-500">
+                {recentOrdersData?.summary?.totalOrders || 0} orders | Sales:{" "}
+                &#8377;
+                {(recentOrdersData?.summary?.totalSales || 0).toLocaleString()}
+              </p>
+            )}
+          </div>
+
+          <div className="flex flex-wrap items-end gap-2">
+            <label className="space-y-1">
+              <span className="block text-[11px] font-medium uppercase tracking-wide text-gray-400">
+                Start
+              </span>
+              <input
+                type="date"
+                value={startDate}
+                max={endDate || undefined}
+                onChange={(e) => setStartDate(e.target.value)}
+                className="h-9 rounded-lg border border-gray-200 px-3 text-xs text-gray-700 outline-none transition-colors focus:border-[var(--brand-primary)] focus:ring-1 focus:ring-[var(--brand-primary)]"
+              />
+            </label>
+            <label className="space-y-1">
+              <span className="block text-[11px] font-medium uppercase tracking-wide text-gray-400">
+                End
+              </span>
+              <input
+                type="date"
+                value={endDate}
+                min={startDate || undefined}
+                onChange={(e) => setEndDate(e.target.value)}
+                className="h-9 rounded-lg border border-gray-200 px-3 text-xs text-gray-700 outline-none transition-colors focus:border-[var(--brand-primary)] focus:ring-1 focus:ring-[var(--brand-primary)]"
+              />
+            </label>
+            {hasDateFilter && (
+              <button
+                type="button"
+                onClick={clearDateFilter}
+                aria-label="Clear date filter"
+                className="flex h-9 w-9 items-center justify-center rounded-lg border border-gray-200 text-gray-400 transition-colors hover:border-red-200 hover:text-red-500"
+              >
+                <X size={14} />
+              </button>
+            )}
+            <Link
+              href="/orders"
+              className="flex h-9 items-center gap-1.5 rounded-lg border border-gray-200 px-3 text-xs text-gray-500 transition-colors hover:border-gray-300 hover:text-gray-900"
+            >
+              <Calendar size={13} />
+              View all
+            </Link>
+          </div>
         </div>
-        <table className="w-full text-sm">
-          <thead>
-            <tr className="border-b border-gray-100">
-              <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wide">Order ID</th>
-              <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wide">Customer</th>
-              <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wide">Amount</th>
-              <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wide">Status</th>
-            </tr>
-          </thead>
-          <tbody>
-            {recentOrdersData?.orders?.length === 0 ? (
-              <tr>
-                <td colSpan={4} className="px-4 py-10 text-center text-gray-400 text-sm">No orders yet</td>
+
+        <div className="overflow-x-auto">
+          <table className="w-full text-sm">
+            <thead>
+              <tr className="border-b border-gray-100">
+                <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wide">
+                  Order ID
+                </th>
+                <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wide">
+                  Customer
+                </th>
+                <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wide">
+                  Date
+                </th>
+                <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wide">
+                  Amount
+                </th>
+                <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wide">
+                  Status
+                </th>
               </tr>
-            ) : (
-              recentOrdersData?.orders?.map((order: any) => (
-                <tr key={order._id} className="border-b border-gray-50 hover:bg-gray-50/50 transition-colors">
-                  <td className="px-4 py-3.5 font-mono text-xs text-gray-600">{order.orderId}</td>
-                  <td className="px-4 py-3.5 text-gray-700">
-                    {order.isManualOrder ? order.manualCustomer?.name : order.user?.name || "—"}
-                  </td>
-                  <td className="px-4 py-3.5 text-gray-700">₹{order.totalAmount?.toLocaleString()}</td>
-                  <td className="px-4 py-3.5">
-                    <Badge label={order.orderStatus} variant={getOrderStatusVariant(order.orderStatus)} />
+            </thead>
+            <tbody>
+              {recentOrdersData?.orders?.length === 0 ? (
+                <tr>
+                  <td
+                    colSpan={5}
+                    className="px-4 py-10 text-center text-gray-400 text-sm"
+                  >
+                    No orders found
                   </td>
                 </tr>
-              ))
-            )}
-          </tbody>
-        </table>
+              ) : (
+                recentOrdersData?.orders?.map((order: any) => (
+                  <tr
+                    key={order._id}
+                    className="border-b border-gray-50 hover:bg-gray-50/50 transition-colors"
+                  >
+                    <td className="px-4 py-3.5 font-mono text-xs text-gray-600">
+                      {order.orderId}
+                    </td>
+                    <td className="px-4 py-3.5 text-gray-700">
+                      {order.isManualOrder
+                        ? order.manualCustomer?.name
+                        : order.user?.name || "-"}
+                    </td>
+                    <td className="px-4 py-3.5 text-gray-500">
+                      {formatDate(order.createdAt)}
+                    </td>
+                    <td className="px-4 py-3.5 text-gray-700">
+                      &#8377;{order.totalAmount?.toLocaleString()}
+                    </td>
+                    <td className="px-4 py-3.5">
+                      <Badge
+                        label={order.orderStatus}
+                        variant={getOrderStatusVariant(order.orderStatus)}
+                      />
+                    </td>
+                  </tr>
+                ))
+              )}
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
   );
